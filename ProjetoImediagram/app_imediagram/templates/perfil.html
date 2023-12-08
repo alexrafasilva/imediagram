@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Perfil - {{ usuario.username }}</h1>
+    <div class="user-info">
+        <p>Nome de Usuário: {{ usuario.username }}</p>
+        <p>E-mail: {{ usuario.email }}</p>
+    </div>
+    <form method="post" action="/perfil/{{ current_user.id }}" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        
+        <label for="foto">Escolha uma foto:</label>
+        {{ form.foto }}
+        {% if form.foto.errors %}
+            <ul class="errors">
+                {% for error in form.foto.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {{ form.botao_confirmacao }}
+    </form>
+{% endblock %}
